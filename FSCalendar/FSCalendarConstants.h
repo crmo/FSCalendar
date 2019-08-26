@@ -75,7 +75,11 @@ static inline void FSCalendarSliceCake(CGFloat cake, NSInteger count, CGFloat *p
     CGFloat total = cake;
     for (int i = 0; i < count; i++) {
         NSInteger remains = count - i;
-        CGFloat piece = FSCalendarRound(total/remains*2)*0.5;
+        static CGFloat scale = 0;
+        if (scale == 0) {
+            scale = [UIScreen mainScreen].scale;
+        }
+        CGFloat piece = FSCalendarRound(total/remains*scale)/scale;
         total -= piece;
         pieces[i] = piece;
     }
